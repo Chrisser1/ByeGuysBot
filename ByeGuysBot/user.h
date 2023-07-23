@@ -1,10 +1,16 @@
 #pragma once
 #include "dpp/dpp.h"
 
+struct GameData
+{
+	double currentNumber = NULL;
+};
+
 struct User
 {
 	dpp::snowflake UserID = NULL;
 	std::string UserName = "Unknown";
-	double lastDaily = 0;
-	double money = 0;
+	double LastDaily = 0.0;
+	int Balance = 0;
+	GameData gameData;
 };
