@@ -1,20 +1,69 @@
-// ByeGuysBot.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include <dpp/dpp.h>
 #include <iostream>
+#include <unordered_map>
+#include "user.h"
+#include "commands.h"
+#include "dotenv.h"
 
-int main()
-{
-    std::cout << "Hello World!\n";
+inline double RandomDouble();
+
+
+
+int main() {
+	dotenv::load(".env");
+	char* TOKEN;
+	size_t envValueSize = 73;
+	_dupenv_s(&TOKEN, &envValueSize, "TOKEN");
+	dpp::cluster bot(TOKEN);
+	free(TOKEN);
+
+	std::unordered_map<dpp::snowflake, User> listOfUsers;
+	Commands commands(listOfUsers);
+
+	bot.on_log(dpp::utility::cout_logger());
+
+	bot.on_slashcommand([&](const dpp::slashcommand_t& event) {
+
+		if (commands.IsRegistered(event))
+			return;
+
+		if (event.command.get_command_name() == "ping") {
+			event.reply("Pong!");
+		}
+
+		if (event.command.get_command_name() == "register") {
+			commands.RegisterUser(event, event.command.get_issuing_user().id);
+		}
+
+		if (event.command.get_command_name() == "daily") {
+			double number = RandomDouble();
+			std::string nuberString = std::to_string(number);
+			event.reply(nuberString);
+		}
+
+		if (event.command.get_command_name() == "gamble") {
+			commands.Gamble(event);
+		}
+		});
+
+	bot.on_ready([&bot](const dpp::ready_t& event)
+		{
+			if (dpp::run_once<struct register_bot_commands>()) {
+				bot.global_command_create(dpp::slashcommand("ping", "Ping pong!", bot.me.id));
+				bot.global_command_create(dpp::slashcommand("register", "Register as a user of the bot", bot.me.id));
+				bot.global_command_create(dpp::slashcommand("daily", "Get a random amount of money each day", bot.me.id));
+				bot.global_command_create(dpp::slashcommand("gamble", "Gamble your money away", bot.me.id));
+			}
+		});
+
+	bot.start(dpp::st_wait);
+
+
+	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+inline double RandomDouble()
+{
+	return rand() / (RAND_MAX + 1.0f);
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
