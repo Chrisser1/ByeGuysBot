@@ -6,20 +6,17 @@
 #include "dotenv.h"
 
 int main() {
-	dotenv::load(".env");
-	char* TOKEN;
-	size_t envValueSize = 73;
-	_dupenv_s(&TOKEN, &envValueSize, "TOKEN");
-	dpp::cluster bot(TOKEN);
-	free(TOKEN);
+    dotenv::load(".env");
+    char* BOT_TOKEN;
+    size_t envValueSize = 73;
+    _dupenv_s(&BOT_TOKEN, &envValueSize, "TOKEN");
+    dpp::cluster discordBot(BOT_TOKEN);
+    free(BOT_TOKEN);
 
-	std::unordered_map<dpp::snowflake, User> listOfUsers;
-	Commands commands(listOfUsers, bot);
-	
-	commands.run();
+    std::unordered_map<dpp::snowflake, User> userMap;
+    Commands botCommands(userMap, discordBot);
 
-	return 0;
+    botCommands.run();
+
+    return 0;
 }
-
-
-

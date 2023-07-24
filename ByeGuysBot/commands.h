@@ -1,46 +1,61 @@
 #pragma once
 #include <dpp/dpp.h>
-#include "user.h"
-
-inline double RandomDouble() {
-    // Returns a random real in [0,1).
-    return rand() / (RAND_MAX + 1.0);
-}
-
-inline double RandomDouble(double min, double max) {
-    // Returns a random real in [min,max).
-    return min + (max - min) * RandomDouble();
-}
+#include <random>
+#include <chrono>
+#include "User.h"
 
 class Commands
 {
 private:
-    std::unordered_map<dpp::snowflake, User>& listOfUsers;
+    std::unordered_map<dpp::snowflake, User>& users;
     dpp::cluster& bot;
 
 public:
     Commands(std::unordered_map<dpp::snowflake, User>& users, dpp::cluster& bot) :
-        listOfUsers(users), bot(bot) {}
+        users(users), bot(bot) {}
 
     void run();
 
 private:
-    User& GetUser(const dpp::snowflake& userId) {
-        return listOfUsers[userId];
-    }
-
-    dpp::snowflake GetId(const dpp::interaction_create_t& event) { return event.command.get_issuing_user().id; }
-
+    // User-related methods
+    User& GetUser(const dpp::snowflake& userId) { return users[userId]; }
     bool IsRegistered(const dpp::slashcommand_t& event);
+    void AddUser(const dpp::snowflake& userId, const User& user) { users[userId] = user; }
+    void RegisterUser(const dpp::slashcommand_t& event, dpp::snowflake userId);
+    void Give(const dpp::slashcommand_t& event);
+    void Daily(const dpp::slashcommand_t& event);
 
-    void AddUser(const dpp::snowflake& userId, const User& user) {
-        listOfUsers[userId] = user;
+    // Game-related methods
+    void Gamble(const dpp::slashcommand_t& event);
+    void HigherLower(const dpp::select_click_t& event);
+    void ButtonPressHigherOrLower(const dpp::button_click_t& event);
+
+    // Utility methods
+    const void ShowBalance(const dpp::interaction_create_t& event);
+    dpp::snowflake GetUserId(const dpp::interaction_create_t& event) { return event.command.get_issuing_user().id; }
+
+    // Random number generation
+    static double RandomDouble() {
+        // Using high resolution clock to seed the random engine
+        unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+        std::default_random_engine generator(seed);
+        std::uniform_real_distribution<double> distribution(0.0, 1.0);
+        return distribution(generator);
     }
 
-    void RegisterUser(const dpp::slashcommand_t& event, dpp::snowflake userId);
-    void Gamble(const dpp::slashcommand_t& event);
-    
-    void HigherLower(const dpp::select_click_t& event);
+    static double RandomDouble(double min, double max) {
+        // Using high resolution clock to seed the random engine
+        unsigned seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+        std::default_random_engine generator(seed);
+        std::uniform_real_distribution<double> distribution(min, max);
+        return distribution(generator);
+    }
 
-    const void ShowBalance(const dpp::interaction_create_t& event);
+    // Random integer generation
+    static int RandomInt(int min, int max) {
+        std::random_device rd;
+        std::mt19937 generator(rd());
+        std::uniform_int_distribution<> distribution(min, max);
+        return distribution(generator);
+    }
 };
