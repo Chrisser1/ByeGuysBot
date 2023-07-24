@@ -40,7 +40,6 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -71,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Programering_CPP\ByeGuysBot\dependencies\include\dpp-10.0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Programering_CPP\ByeGuysBot\dependencies\lib\dpp-10.0;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\dependencies\include\dpp-10.0;$(IncludePath)</IncludePath>
+    <LibraryPath>..\dependencies\lib\dpp-10.0;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Programering_CPP\ByeGuysBot\dependencies\include\dpp-10.0;$(IncludePath)</IncludePath>
