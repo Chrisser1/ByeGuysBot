@@ -21,6 +21,21 @@
     <ClCompile Include="commands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="higherLower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gamble.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="daily.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="give.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="showBalance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commands.h">

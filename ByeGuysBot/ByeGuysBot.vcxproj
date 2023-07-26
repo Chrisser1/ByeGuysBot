@@ -140,6 +140,11 @@
   <ItemGroup>
     <ClCompile Include="ByeGuysBot.cpp" />
     <ClCompile Include="commands.cpp" />
+    <ClCompile Include="daily.cpp" />
+    <ClCompile Include="gamble.cpp" />
+    <ClCompile Include="give.cpp" />
+    <ClCompile Include="higherLower.cpp" />
+    <ClCompile Include="showBalance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commands.h" />
