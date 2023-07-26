@@ -2,7 +2,7 @@
   "name": "byeguysbot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/Chrisser1/ByeGuysBot#readme",
   "dependencies": {
-    "@discordjs/core": "^0.6.0"
+    "@discordjs/core": "^0.6.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0"
   }
 }
