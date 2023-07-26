@@ -1,0 +1,22 @@
+{
+  "name": "byeguysbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chrisser1/ByeGuysBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chrisser1/ByeGuysBot/issues"
+  },
+  "homepage": "https://github.com/Chrisser1/ByeGuysBot#readme",
+  "dependencies": {
+    "@discordjs/core": "^0.6.0"
+  }
+}
